@@ -3,32 +3,19 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const PORT = process.env.PORT || 2000;
-
-const {
-  readController, createOrUpdateController,
-} = require('./movieInfoControllers');
+const { movieInfoController } = require('./movieInfoControllers');
 
 app.use('/main/:id', express.static('client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-// get request for movie info
-app.get('/info/:id', readController);
+app.get('/info/:id', movieInfoController);
+app.post('/info/:id/create', movieInfoController);
+app.put('/info/:id/put', movieInfoController);
+app.delete('/info/:id/delete', movieInfoController);
 
-
-app.post('/info/:id/create', createOrUpdateController);
-
-
-app.put('/info/:id/put', createOrUpdateController);
-
-// app.get('/info/:id/delete', (req, res) => {
-//   console.log('DELETE new item');
-
-//   res.status(200).send('DELETE New Item from DELETE');
-// });
-
+const PORT = process.env.PORT || 2000;
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
