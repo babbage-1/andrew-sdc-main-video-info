@@ -37,7 +37,31 @@ const createMovieInfo = async (dataObj) => {
   try {
     const res = await pool.query(createQuery);
     const { command, rowCount } = res;
-    console.log({ command, rowCount })
+    console.log({ command, rowCount });
+    return { command, rowCount };
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+};
+
+const updateMovieInfo = async (dataObj, id) => {
+  const {
+    name, genre, score, runtime, rating, releaseday, releasemonth, releaseyear, image,
+  } = dataObj;
+
+  const updateQuery = {
+    name: 'update-MovieInfo',
+    text: `UPDATE movieinfo
+    SET name = $1, genre = $2, score = $3, runtime = $4, rating = $5, releaseday = $6, releasemonth = $7, releaseyear = $8, image = $9
+    WHERE id = $10`,
+    values: [name, genre, score, runtime, rating, releaseday, releasemonth, releaseyear, image, id],
+  };
+
+  try {
+    const res = await pool.query(updateQuery);
+    const { command, rowCount } = res;
+    console.log({ command, rowCount });
     return { command, rowCount };
   } catch (e) {
     console.log(e);
@@ -48,4 +72,5 @@ const createMovieInfo = async (dataObj) => {
 module.exports = {
   getMovieInfo,
   createMovieInfo,
+  updateMovieInfo,
 };
