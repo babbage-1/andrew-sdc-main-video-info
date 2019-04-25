@@ -47,4 +47,5 @@ const createMovieInfo = async (dataObj) => {
 
 module.exports = {
   getMovieInfo,
+  createMovieInfo,
 };
