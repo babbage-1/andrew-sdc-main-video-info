@@ -31,7 +31,7 @@ class App extends React.Component {
 
   // fetch movie poster and info on mount
   componentDidMount() {
-    this.getMoviePoster(this.state.movieId);
+    // this.getMoviePoster(this.state.movieId);
     this.getMovieInfo(this.state.movieId);
   }
 
@@ -41,7 +41,7 @@ class App extends React.Component {
     const idRoute = window.location.pathname;
     const idArray = idRoute.split('/').filter(elem => elem !== '');
     const parsedId = Number(idArray[idArray.length - 1]);
-    console.log('parsedId for movie poster', parsedId)
+    console.log('parsedId for movie poster', parsedId);
     // CHANGED ENDPOINT
     fetch(`/info/${parsedId || 1}/poster`)
       .then(res => res.json())
@@ -63,15 +63,30 @@ class App extends React.Component {
     const idRoute = window.location.pathname;
     const idArray = idRoute.split('/').filter(elem => elem !== '');
     const parsedId = Number(idArray[idArray.length - 1]);
-    console.log('parsedId for movie info', parsedId)
+    console.log('parsedId for movie info', parsedId);
     // currently doing localhost:2000/3 etc will not display properly
     // CHANGED ENDPOINT
     fetch(`/info/${parsedId || 1}`)
       .then(res => res.json())
       .then(
         (result) => {
+          console.log(result);
+          const modifiedResult = {
+            info: {
+              name: result.name,
+              genre: result.genre,
+              score: result.score,
+              runtime: result.runtime,
+              image: result.image,
+              rating: result.rating,
+              releaseMonth: result.releasemonth,
+              releaseDay: result.relseaseday,
+              releaseYear: result.releaseyear,
+            },
+          };
           this.setState({
-            movieInfo: result,
+            movieInfo: modifiedResult,
+            poster: result.image,
           });
         },
         (error) => {
@@ -170,6 +185,7 @@ class App extends React.Component {
     //  ensure data for movie info is received before rendering
     // display this if movie info is ready and user has not clicked search/go
     if (this.state.movieInfo && !this.state.locationSearched) {
+      console.log('what is state?', this.state);
       return (
         <div>
           <MovieNavbar movie={this.state.movieInfo} />
@@ -193,6 +209,7 @@ class App extends React.Component {
         </div>
       );
     } if (this.state.movieInfo && this.state.locationSearched && this.state.showtimeInfo) {
+      console.log('what is state?', this.state);
       return (
         <div>
           <MovieNavbar movie={this.state.movieInfo} />
@@ -217,7 +234,7 @@ class App extends React.Component {
       );
     }
     return (
-        <div>ERROR</div>
+      <div>ERROR</div>
     );
   }
 }

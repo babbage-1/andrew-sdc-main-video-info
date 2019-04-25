@@ -75,7 +75,6 @@ class MovieInfo extends React.Component {
       </div>
     );
   }
-
 };
 
 export {
