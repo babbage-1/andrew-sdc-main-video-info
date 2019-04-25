@@ -4,9 +4,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const db = require('../db/index.js');
 const PORT = process.env.PORT || 2000;
-// CHANGED
+
 app.use('/main/:id', express.static('client/dist'));
-// CHANGED
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
@@ -16,9 +15,7 @@ app.listen(PORT, () => {
 });
 
 // get request for movie info
-// CHANGED
 app.get('/info/:id', (req, res) => {
-  // if time, refactor to not use query
   const movieId = req.params.id;
   db.getMovieInfo(movieId, (err, results) => {
     if (err) {
