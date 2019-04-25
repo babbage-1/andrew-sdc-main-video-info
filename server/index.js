@@ -6,8 +6,8 @@ const cors = require('cors');
 const PORT = process.env.PORT || 2000;
 
 const {
-  readController, createController, putController,
-} = require('./controllers');
+  readController, createOrUpdateController,
+} = require('./movieInfoControllers');
 
 app.use('/main/:id', express.static('client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,16 +18,16 @@ app.use(cors());
 app.get('/info/:id', readController);
 
 
-app.post('/info/:id/create', createController);
+app.post('/info/:id/create', createOrUpdateController);
 
 
-app.put('/info/:id/put', putController);
+app.put('/info/:id/put', createOrUpdateController);
 
-app.get('/info/:id/delete', (req, res) => {
-  console.log('DELETE new item');
+// app.get('/info/:id/delete', (req, res) => {
+//   console.log('DELETE new item');
 
-  res.status(200).send('DELETE New Item from DELETE');
-});
+//   res.status(200).send('DELETE New Item from DELETE');
+// });
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
