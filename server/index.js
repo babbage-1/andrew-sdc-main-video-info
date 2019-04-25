@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { movieInfoController } = require('./movieInfoControllers');
+const { movieInfoController } = require('./movieInfoController');
 
 app.use('/main/:id', express.static('client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,7 +19,6 @@ const PORT = process.env.PORT || 2000;
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
-
 
 /*
 REDUNDANT API CALL. ABSOLUTELY NOT NECESSARY.
