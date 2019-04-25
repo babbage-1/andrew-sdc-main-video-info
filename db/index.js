@@ -3,10 +3,16 @@ const path = require('path');
 const { config } = require('../postgres_config');
 const pool = new Pool(config);
 
-
 const getMovieInfo = async (id) => {
+  // prepared query for faster querying
+  const getMovieInfoQuery = {
+    name: 'get-MovieInfo',
+    text: 'SELECT * FROM movieinfo WHERE id = $1',
+    values: [id],
+  };
+
   try {
-    const res = await pool.query('SELECT * FROM movieinfo WHERE id = $1', [id]);
+    const res = await pool.query(getMovieInfoQuery);
     console.log(`movie info for id ${id}\n`, res.rows[0]);
     return res.rows[0];
   } catch (e) {
@@ -14,6 +20,19 @@ const getMovieInfo = async (id) => {
     throw e;
   }
 };
+
+// const createMovieInfo = async (dataObj) => {
+//   try {
+
+//     const queryString = `INSERT INTO
+//     (name, genre, score, runtime, rating, releaseday, releasemonth, releaseyear, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`
+//     const params = [];
+//     const res = await pool.query(queryString, params);
+//   } catch (e) {
+//     console.log(e);
+//     throw e;
+//   }
+// }
 
 // const getMoviePoster = async (id) => {
 //   try {
