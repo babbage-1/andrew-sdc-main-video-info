@@ -43,4 +43,5 @@ s3Config.json
 *.csv
 *.env
 
-
+# Files to ignore from Brian's service!
+index_mongoose.js
