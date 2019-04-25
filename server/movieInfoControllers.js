@@ -1,14 +1,16 @@
 const {
-  getMovieInfo, createMovieInfo, updateMovieInfo,
+  getMovieInfo, createMovieInfo, updateMovieInfo, deleteMovieInfo,
 } = require('../db/index');
 const {
   idIsNaN,
   isDataObjDefined,
 } = require('./dataCheck');
 
-const readController = async (req, res) => {
+const readOrDeleteController = async (req, res) => {
+  console.log('what is method', req.method, typeof req.method);
   // assume id always given
   const movieId = req.params.id;
+  const { method } = req;
   // check if id number, return error ir not
   if (idIsNaN(movieId)) {
     console.log('id not a number');
@@ -17,12 +19,18 @@ const readController = async (req, res) => {
   }
 
   try {
-    const movieInfo = await getMovieInfo(movieId);
+    let result;
+    if (method === 'GET') {
+      result = await getMovieInfo(movieId);
+    }
+    if (method === 'DELETE') {
+      result = await deleteMovieInfo(movieId);
+    }
     // Send not found if db does not contain the movie
-    if (movieInfo === undefined) {
+    if (result === undefined) {
       res.sendStatus(404);
     }
-    res.json(movieInfo);
+    res.json(result);
   } catch (e) {
     res.sendStatus(500);
   }
@@ -70,41 +78,7 @@ const createOrUpdateController = async (req, res) => {
   }
 };
 
-// const putController = async (req, res) => {
-//   const movieId = req.params.id;
-//   if (idIsNaN(movieId)) {
-//     console.log('id not a number');
-//     res.sendStatus(400);
-//     return;
-//   }
-//   const {
-//     name, genre, score, runtime, rating, releaseday, releasemonth, releaseyear, image,
-//   } = req.body;
-
-//   const dataObj = {
-//     name, genre, score, runtime, rating, releaseday, releasemonth, releaseyear, image,
-//   };
-//   // return error if data obj not properly defined.
-//   if (!isDataObjDefined(dataObj)) {
-//     console.log('dataObj not properly defined');
-//     res.sendStatus(400);
-//     return;
-//   }
-
-//   try {
-//     const createResult = await createMovieInfo(dataObj);
-//     // Send not found if db does not contain the movie
-//     if (createResult === undefined) {
-//       res.sendStatus(404);
-//     }
-//     res.json(createResult);
-//   } catch (e) {
-//     res.sendStatus(500);
-//   }
-// };
-
 module.exports = {
-  readController,
+  readOrDeleteController,
   createOrUpdateController,
-  // putController,
 };
