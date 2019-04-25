@@ -69,8 +69,28 @@ const updateMovieInfo = async (dataObj, id) => {
   }
 };
 
+const deleteMovieInfo = async (id) => {
+  // prepared query for faster querying
+  const deleteQuery = {
+    name: 'delete-MovieInfo',
+    text: 'DELETE FROM movieinfo WHERE id = $1',
+    values: [id],
+  };
+
+  try {
+    const res = await pool.query(deleteQuery);
+    const { command, rowCount } = res;
+    console.log({ command, rowCount });
+    return { command, rowCount };
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+};
+
 module.exports = {
   getMovieInfo,
   createMovieInfo,
   updateMovieInfo,
+  deleteMovieInfo,
 };
