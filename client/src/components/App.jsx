@@ -41,7 +41,7 @@ class App extends React.Component {
     const idRoute = window.location.pathname;
     const idArray = idRoute.split('/').filter(elem => elem !== '');
     const parsedId = Number(idArray[idArray.length - 1]);
-
+    console.log('parsedId for movie poster', parsedId)
     // CHANGED ENDPOINT
     fetch(`/info/${parsedId || 1}/poster`)
       .then(res => res.json())
@@ -57,8 +57,13 @@ class App extends React.Component {
 
   // get correct movie info
   getMovieInfo(id) {
+    // const idRoute = window.location.pathname;
+    // const parsedId = Number(idRoute.split('').filter(char => char !== '/').join(''));
+
     const idRoute = window.location.pathname;
-    const parsedId = Number(idRoute.split('').filter(char => char !== '/').join(''));
+    const idArray = idRoute.split('/').filter(elem => elem !== '');
+    const parsedId = Number(idArray[idArray.length - 1]);
+    console.log('parsedId for movie info', parsedId)
     // currently doing localhost:2000/3 etc will not display properly
     // CHANGED ENDPOINT
     fetch(`/info/${parsedId || 1}`)
