@@ -1,10 +1,16 @@
-/* eslint-disable no-restricted-globals */
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { getMovieInfo } = require('../db/index.js');
 const PORT = process.env.PORT || 2000;
+const {
+  getMovieInfo, createMovieInfo,
+} = require('../db/index');
+const {
+  idIsNaN,
+  isDataObjDefined,
+} = require('./dataCheck');
 
 app.use('/main/:id', express.static('client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,8 +22,7 @@ app.get('/info/:id', async (req, res) => {
   // assume id always given
   const movieId = req.params.id;
   // check if id number, return error ir not
-  const isNotNumber = isNaN(Number(movieId));
-  if (isNotNumber) {
+  if (idIsNaN(movieId)) {
     console.log('id not a number');
     res.sendStatus(400);
     return;
@@ -36,10 +41,40 @@ app.get('/info/:id', async (req, res) => {
 });
 
 
-app.post('/info/:id/update', (req, res) => {
+app.post('/info/:id/create', async (req, res) => {
   console.log('CREATE new item');
+  const movieId = req.params.id;
+  // return error if id not number
+  if (idIsNaN(movieId)) {
+    console.log('id not a number');
+    res.sendStatus(400);
+    return;
+  }
+  const {
+    name, genre, score, runtime, rating, releaseday, releasemonth, releaseyear, image,
+  } = req.body;
 
-  res.status(200).send('Create New Item from POST');
+  const dataObj = {
+    name, genre, score, runtime, rating, releaseday, releasemonth, releaseyear, image,
+  };
+  // return error if data obj not properly defined.
+  if (!isDataObjDefined(dataObj)) {
+    console.log('dataObj not properly defined');
+    res.sendStatus(400);
+    return;
+  }
+
+  try {
+    const createResult = await createMovieInfo(dataObj);
+    // Send not found if db does not contain the movie
+    console.log(createResult);
+    if (createResult === undefined) {
+      res.sendStatus(404);
+    }
+    res.json(createResult);
+  } catch (e) {
+    res.sendStatus(500);
+  }
 });
 
 
