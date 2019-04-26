@@ -30,15 +30,15 @@ const createMovieInfo = async (dataObj) => {
     name: 'create-MovieInfo',
     text: `INSERT INTO movieinfo
     (name, genre, score, runtime, rating, releaseday, releasemonth, releaseyear, image)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id`,
     values: [name, genre, score, runtime, rating, releaseday, releasemonth, releaseyear, image],
   };
 
   try {
     const res = await pool.query(createQuery);
-    const { command, rowCount } = res;
-    console.log({ command, rowCount });
-    return { command, rowCount };
+    const { command, rowCount, rows } = res;
+    console.log({ command, rowCount, id: rows[0].id });
+    return { command, rowCount, id: rows[0].id };
   } catch (e) {
     console.log(e);
     throw e;
