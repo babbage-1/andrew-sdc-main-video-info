@@ -54,15 +54,15 @@ const updateMovieInfo = async (dataObj, id) => {
     name: 'update-MovieInfo',
     text: `UPDATE movieinfo
     SET name = $1, genre = $2, score = $3, runtime = $4, rating = $5, releaseday = $6, releasemonth = $7, releaseyear = $8, image = $9
-    WHERE id = $10`,
+    WHERE id = $10 RETURNING id`,
     values: [name, genre, score, runtime, rating, releaseday, releasemonth, releaseyear, image, id],
   };
 
   try {
     const res = await pool.query(updateQuery);
-    const { command, rowCount } = res;
-    console.log({ command, rowCount });
-    return { command, rowCount };
+    const { command, rowCount, rows } = res;
+    console.log({ command, rowCount, id: rows[0].id });
+    return { command, rowCount, id: rows[0].id };
   } catch (e) {
     console.log(e);
     throw e;
