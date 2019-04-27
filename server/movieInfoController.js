@@ -7,7 +7,7 @@ const {
 } = require('./dataCheck');
 
 const movieInfoController = async (req, res) => {
-  console.log('what is method', req.method, typeof req.method);
+
   // assume id always given
   const { method } = req;
   let movieId;
@@ -59,8 +59,13 @@ const movieInfoController = async (req, res) => {
     if (result === undefined) {
       res.sendStatus(404);
     }
-    res.json(result);
+    if (method === 'POST') {
+      res.status(201).json(result);
+    } else {
+      res.json(result);
+    }
   } catch (e) {
+    console.log('================== error! ==================');
     res.sendStatus(500);
   }
 };
