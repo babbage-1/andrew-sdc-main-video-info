@@ -7,7 +7,6 @@ const {
 } = require('./dataCheck');
 
 const movieInfoController = async (req, res) => {
-
   // assume id always given
   const { method } = req;
   let movieId;
