@@ -24,7 +24,8 @@
     "seed:postgresSample": "node --max-old-space-size=4096 ./database_seeder/sampleSeedPostgreSQL.js",
     "seed:postgres": "node --max-old-space-size=4096 ./database_seeder/seedPostgreSQL.js",
     "seed:cassandraSample": "cqlsh 127.0.0.1 9042 -f ./database_seeder/cassandra-sample.cql",
-    "seed:cassandra": "cqlsh 127.0.0.1 9042 -f ./database_seeder/cassandra.cql"
+    "seed:cassandra": "cqlsh 127.0.0.1 9042 -f ./database_seeder/cassandra.cql",
+    "createId": "node data_generator/createId.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.3",
