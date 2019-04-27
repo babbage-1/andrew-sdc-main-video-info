@@ -7,7 +7,7 @@ const writer = csvWriter();
 const writeIdCsv = async () => {
   try {
     writer.pipe(fs.createWriteStream('./newrelic-id.csv'));
-    for (let i = 1; i <= 10000; i += 1) {
+    for (let i = 1; i <= 50; i += 1) {
       const randInt = await faker.random.number({
         min: 1,
         max: 10000000,
