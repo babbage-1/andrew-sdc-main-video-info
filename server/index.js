@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/main/:id/read', movieInfoController);
-app.post('/main/create', movieInfoController);
+app.post('/main/:id/create', movieInfoController);
 app.put('/main/:id/update', movieInfoController);
 app.delete('/main/:id/delete', movieInfoController);
 
