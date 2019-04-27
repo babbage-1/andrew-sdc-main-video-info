@@ -1,0 +1,36 @@
+config:
+  target: "http://localhost:2000/main"
+  phases:
+    - duration: 60
+      arrivalRate: 2
+  defaults:
+    headers:
+      # x-my-service-auth: '987401838271002188298567'
+  payload:
+    path: "newrelicId.csv"
+    fields:
+      - "id"
+    skipHeader: true
+  variables:
+
+scenarios:
+  - name: "GET requests"
+    weight: 19
+    flow:
+      - get:
+          url: "/{{ id }}/read"
+  - name: "POST requests"
+    weight: 1
+    flow:
+      - post:
+          url: "/{{ id }}/create"
+          json:
+            name: "adipisci sit at"
+            genre: "Romance|Fantasy"
+            score: "3"
+            runtime: "157"
+            rating: "PG"
+            releaseday: "23"
+            releasemonth: "June"
+            releaseyear: "1994"
+            image: "https://s3.us-east-2.amazonaws.com/sdc-andrew-movie-posters/--anoWjsY-8.jpg"
