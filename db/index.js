@@ -13,11 +13,9 @@ const getMovieInfo = async (id) => {
 
   try {
     const res = await pool.query(getQuery);
-    console.log(`movie info for id ${id}\n`, res.rows[0]);
     return res.rows[0];
   } catch (e) {
-    console.log(e);
-    throw e;
+    console.log(e.stack);
   }
 };
 
@@ -37,11 +35,9 @@ const createMovieInfo = async (dataObj) => {
   try {
     const res = await pool.query(createQuery);
     const { command, rowCount, rows } = res;
-    console.log({ command, rowCount, id: rows[0].id });
     return { command, rowCount, id: rows[0].id };
   } catch (e) {
-    console.log(e);
-    throw e;
+    console.log(e.stack);
   }
 };
 
@@ -61,11 +57,9 @@ const updateMovieInfo = async (dataObj, id) => {
   try {
     const res = await pool.query(updateQuery);
     const { command, rowCount, rows } = res;
-    console.log({ command, rowCount, id: rows[0].id });
     return { command, rowCount, id: rows[0].id };
   } catch (e) {
-    console.log(e);
-    throw e;
+    console.log(e.stack);
   }
 };
 
@@ -80,11 +74,9 @@ const deleteMovieInfo = async (id) => {
   try {
     const res = await pool.query(deleteQuery);
     const { command, rowCount, rows } = res;
-    console.log({ command, rowCount, id: rows[0].id });
     return { command, rowCount, id: rows[0].id };
   } catch (e) {
-    console.log(e);
-    throw e;
+    console.log(e.stack);
   }
 };
 
