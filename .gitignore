@@ -46,4 +46,3 @@ s3Config.json
 # Files to ignore from Brian's service!
 index_mongoose.js
 newrelic.js
-
