@@ -9,7 +9,8 @@
   },
   "scripts": {
     "seed": "mongoimport --db sdcBrian --collection movies --file mock-movie-data.json --jsonArray",
-    "build": "webpack -d --watch",
+    "build:dev": "webpack -d --watch",
+    "build": "webpack -p --watch",
     "server-dev": "nodemon server/index.js",
     "server-dev-mongo": "nodemon server/index_mongoose.js",
     "start": "node server/index.js",
@@ -23,7 +24,8 @@
     "seed:postgresSample": "node --max-old-space-size=4096 ./database_seeder/sampleSeedPostgreSQL.js",
     "seed:postgres": "node --max-old-space-size=4096 ./database_seeder/seedPostgreSQL.js",
     "seed:cassandraSample": "cqlsh 127.0.0.1 9042 -f ./database_seeder/cassandra-sample.cql",
-    "seed:cassandra": "cqlsh 127.0.0.1 9042 -f ./database_seeder/cassandra.cql"
+    "seed:cassandra": "cqlsh 127.0.0.1 9042 -f ./database_seeder/cassandra.cql",
+    "createId": "node data_generator/createId.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.3",
@@ -44,6 +46,7 @@
     "mongod": "^2.0.0",
     "mongodb": "^3.2.2",
     "mongoose": "^5.4.20",
+    "newrelic": "^5.7.0",
     "pg": "^7.10.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

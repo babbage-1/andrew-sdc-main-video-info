@@ -1,4 +1,4 @@
-
+require('newrelic');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -10,10 +10,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/info/:id', movieInfoController);
-app.post('/info/:id/create', movieInfoController);
-app.put('/info/:id/put', movieInfoController);
-app.delete('/info/:id/delete', movieInfoController);
+app.get('/main/:id/read', movieInfoController);
+app.post('/main/:id/create', movieInfoController);
+app.put('/main/:id/update', movieInfoController);
+app.delete('/main/:id/delete', movieInfoController);
 
 const PORT = process.env.PORT || 2000;
 app.listen(PORT, () => {

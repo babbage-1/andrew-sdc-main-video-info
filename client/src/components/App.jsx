@@ -66,7 +66,7 @@ class App extends React.Component {
     console.log('parsedId for movie info', parsedId);
     // currently doing localhost:2000/3 etc will not display properly
     // CHANGED ENDPOINT
-    fetch(`/info/${parsedId || 1}`)
+    fetch(`/main/${parsedId || 1}/read`)
       .then(res => res.json())
       .then(
         (result) => {

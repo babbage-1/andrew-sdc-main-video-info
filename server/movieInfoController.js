@@ -7,15 +7,18 @@ const {
 } = require('./dataCheck');
 
 const movieInfoController = async (req, res) => {
-  console.log('what is method', req.method, typeof req.method);
   // assume id always given
-  const movieId = req.params.id;
   const { method } = req;
-  // check if id number, return error ir not
-  if (idIsNaN(movieId)) {
-    console.log('id not a number');
-    res.sendStatus(400);
-    return;
+  let movieId;
+  // get
+  if (method === 'GET' || method === 'PUT' || method === 'DELETE') {
+    movieId = req.params.id;
+    if (idIsNaN(movieId)) {
+      // check if id number, return error ir not
+      console.log('id not a number');
+      res.sendStatus(400);
+      return;
+    }
   }
 
   try {
@@ -55,8 +58,13 @@ const movieInfoController = async (req, res) => {
     if (result === undefined) {
       res.sendStatus(404);
     }
-    res.json(result);
+    if (method === 'POST') {
+      res.status(201).json(result);
+    } else {
+      res.json(result);
+    }
   } catch (e) {
+    console.log('================== error! ==================');
     res.sendStatus(500);
   }
 };
