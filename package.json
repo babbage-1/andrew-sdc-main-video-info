@@ -11,6 +11,7 @@
     "seed": "mongoimport --db sdcBrian --collection movies --file mock-movie-data.json --jsonArray",
     "build": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
+    "server-dev-mongo": "nodemon server/index_mongoose.js",
     "start": "node server/index.js",
     "test:watch": "jest --watchAll --verbose",
     "test:coverage": "jest --verbose --coverage",

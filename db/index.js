@@ -1,60 +1,96 @@
-// const pw = require('./credentials');
-const mongoose = require('mongoose');
-// const dbURI = `mongodb+srv://bkwon94:${pw.pw}@cluster0-2ific.mongodb.net/fec`
-// connect to database in mongo atlas
+const { Pool } = require('pg');
+const path = require('path');
+const { config } = require('../postgres_config');
+const pool = new Pool(config);
 
-const dbURI = 'mongodb://localhost:27017/sdcBrian';
-mongoose.connect(dbURI, { useNewUrlParser: true});
-const db = mongoose.connection;
+const getMovieInfo = async (id) => {
+  // prepared query for faster querying
+  const getQuery = {
+    name: 'read-MovieInfo',
+    text: 'SELECT * FROM movieinfo WHERE id = $1',
+    values: [id],
+  };
 
-// check for connection
-db.on('connected', () => {
-  console.log('fec db connected');
-})
-
-const movieInfoSchema = mongoose.Schema({
-  id: Number,
-  name: String,
-  info: {
-    description: String,
-    release: String,
-    genre: String,
-    score: Number,
-    runtime: Number,
-    image: String,
-    rating: String
+  try {
+    const res = await pool.query(getQuery);
+    console.log(`movie info for id ${id}\n`, res.rows[0]);
+    return res.rows[0];
+  } catch (e) {
+    console.log(e);
+    throw e;
   }
-});
-
-let Movie = mongoose.model('Movie', movieInfoSchema);
-// db helper functions
-// grab all info related to movie except for poster
-let getMovieInfo = (id, callback) => {
-  let query = Movie.find({'id': id}).select('name info');
-  query.exec((err, result) => {
-    if (err) {
-      callback(err, null);
-    }
-    callback(null, result);
-  });
 };
 
-// get the poster images from db
-let getMoviePoster = (id, callback) => {
-  let query = Movie.find( {'id': id } ).select('info.image');
-  query.exec((err, result) => {
-      if (err) {
-        callback(err, null);
-      }
-      console.log(result);
-      callback(null, result);
-    });
+const createMovieInfo = async (dataObj) => {
+  const {
+    name, genre, score, runtime, rating, releaseday, releasemonth, releaseyear, image,
+  } = dataObj;
+
+  const createQuery = {
+    name: 'create-MovieInfo',
+    text: `INSERT INTO movieinfo
+    (name, genre, score, runtime, rating, releaseday, releasemonth, releaseyear, image)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+    values: [name, genre, score, runtime, rating, releaseday, releasemonth, releaseyear, image],
+  };
+
+  try {
+    const res = await pool.query(createQuery);
+    const { command, rowCount } = res;
+    console.log({ command, rowCount });
+    return { command, rowCount };
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
 };
 
+const updateMovieInfo = async (dataObj, id) => {
+  const {
+    name, genre, score, runtime, rating, releaseday, releasemonth, releaseyear, image,
+  } = dataObj;
+
+  const updateQuery = {
+    name: 'update-MovieInfo',
+    text: `UPDATE movieinfo
+    SET name = $1, genre = $2, score = $3, runtime = $4, rating = $5, releaseday = $6, releasemonth = $7, releaseyear = $8, image = $9
+    WHERE id = $10`,
+    values: [name, genre, score, runtime, rating, releaseday, releasemonth, releaseyear, image, id],
+  };
+
+  try {
+    const res = await pool.query(updateQuery);
+    const { command, rowCount } = res;
+    console.log({ command, rowCount });
+    return { command, rowCount };
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+};
+
+const deleteMovieInfo = async (id) => {
+  // prepared query for faster querying
+  const deleteQuery = {
+    name: 'delete-MovieInfo',
+    text: 'DELETE FROM movieinfo WHERE id = $1',
+    values: [id],
+  };
+
+  try {
+    const res = await pool.query(deleteQuery);
+    const { command, rowCount } = res;
+    console.log({ command, rowCount });
+    return { command, rowCount };
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+};
 
 module.exports = {
-  db: db,
-  getMovieInfo: getMovieInfo,
-  getMoviePoster: getMoviePoster
-
+  getMovieInfo,
+  createMovieInfo,
+  updateMovieInfo,
+  deleteMovieInfo,
 };

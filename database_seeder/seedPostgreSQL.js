@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 const path = require('path');
-const { config } = require('./config');
+const { config } = require('../postgres_config');
 const pool = new Pool(config);
 
 const seedPostgres = async () => {
