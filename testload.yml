@@ -1,16 +1,13 @@
 config:
   target: "http://localhost:2000/main"
   phases:
-    - duration: 60
+    - duration: 120
       arrivalRate: 10
-      rampTo: 50
+      rampTo: 20
       name: "Warm up the application"
-    - duration: 60
-      arrivalRate: 50
+    - duration: 600
+      arrivalRate: 20
       name: "Sustained max load"
-  defaults:
-    headers:
-      # x-my-service-auth: '987401838271002188298567'
   payload:
     path: "newrelicId.csv"
     fields:
