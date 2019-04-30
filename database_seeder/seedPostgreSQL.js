@@ -35,9 +35,8 @@ const seedPostgres = async () => {
 
     console.log('adding auto serial index column named "id"!');
     await client.query(`
-      ALTER TABLE movieinfo ADD COLUMN id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY;
+      ALTER TABLE movieinfo ADD COLUMN id SERIAL PRIMARY KEY;
     `);
-    // NOT CONCURRENTLY, NOT MULTI COLUMN (releaseyear)
 
     console.log('commiting!');
     await client.query('COMMIT');
