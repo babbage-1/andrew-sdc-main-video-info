@@ -22,7 +22,6 @@
     "cassandra-driver": "^4.0.0",
     "cors": "^2.8.5",
     "dotenv": "^7.0.0",
-    "enzyme-to-json": "^3.3.5",
     "express": "^4.16.4",
     "grunt": "^1.0.4",
     "grunt-aws-s3": "^2.0.0",
