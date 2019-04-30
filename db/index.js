@@ -16,6 +16,7 @@ const getMovieInfo = async (id) => {
     return res.rows[0];
   } catch (e) {
     console.log(e.stack);
+    throw e;
   }
 };
 
@@ -38,6 +39,7 @@ const createMovieInfo = async (dataObj) => {
     return { command, rowCount, id: rows[0].id };
   } catch (e) {
     console.log(e.stack);
+    throw e;
   }
 };
 
@@ -60,6 +62,7 @@ const updateMovieInfo = async (dataObj, id) => {
     return { command, rowCount, id: rows[0].id };
   } catch (e) {
     console.log(e.stack);
+    throw e;
   }
 };
 
@@ -77,6 +80,7 @@ const deleteMovieInfo = async (id) => {
     return { command, rowCount, id: rows[0].id };
   } catch (e) {
     console.log(e.stack);
+    throw e;
   }
 };
 
