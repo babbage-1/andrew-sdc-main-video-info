@@ -25,7 +25,10 @@
     "seed:postgres": "node --max-old-space-size=4096 ./database_seeder/seedPostgreSQL.js",
     "seed:cassandraSample": "cqlsh 127.0.0.1 9042 -f ./database_seeder/cassandra-sample.cql",
     "seed:cassandra": "cqlsh 127.0.0.1 9042 -f ./database_seeder/cassandra.cql",
-    "createId": "node data_generator/createId.js"
+    "createId": "node data_generator/createId.js",
+    "test:artillery": "artillery run testload.yml",
+    "e2:uploadCsv": "scp -i ~/code/amazon-keys/andrew-sdc-key-pair-useast1.pem ./database_seeder/sdc-postgresql-data.csv ec2-user@ec2-54-82-216-200.compute-1.amazonaws.com:~",
+    "e2:connect": " ssh -i '/Users/exitright/code/amazon-keys/andrew-sdc-key-pair-useast1.pem' ec2-user@ec2-54-82-216-200.compute-1.amazonaws.com"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.3",
