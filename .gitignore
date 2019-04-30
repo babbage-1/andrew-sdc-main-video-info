@@ -46,3 +46,12 @@ s3Config.json
 # Files to ignore from Brian's service!
 index_mongoose.js
 newrelic.js
+
+# Files to ignore for deployment of service server
+key.js
+client/src
+data_generator/
+data_sample_generator/
+database_seeder/
+public/
+test_db/
