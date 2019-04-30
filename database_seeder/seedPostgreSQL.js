@@ -29,8 +29,9 @@ const seedPostgres = async () => {
 
 
     const copyPath = path.join(__dirname, './sdc-postgresql-data.csv');
+    const ec2Path = '/var/lib/pgsql92/sdc-postgresql-data.csv';
     await client.query(`
-      COPY MovieInfo FROM '${copyPath}' WITH (FORMAT CSV, HEADER);
+      COPY MovieInfo FROM '${ec2Path}' WITH (FORMAT CSV, HEADER);
     `);
 
     console.log('adding auto serial index column named "id"!');
