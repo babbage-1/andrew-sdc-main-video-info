@@ -1,7 +1,8 @@
+/* eslint-disable jest/valid-describe */
 /* eslint-disable no-await-in-loop */
-const { Client } = require('pg');
+const { Client, Pool } = require('pg');
 const { config } = require('../postgres_config');
-const client = new Client(config);
+const pool = new Pool(config);
 
 // const connectPostgres = async () => {
 //   await pool.connect();
@@ -10,19 +11,20 @@ const client = new Client(config);
 //   await pool.release();
 // };
 
-beforeAll(async () => {
-  await client.connect();
-});
+// beforeAll(async () => {
+//   await client.connect();
+// });
 
-afterAll(async () => {
-  await client.end();
-});
+// afterAll(async () => {
+//   await client.end();
+// });
 
-describe('Postgres DBMS Benchmarking with 10M data points', () => {
+describe('Postgres DBMS Benchmarking with 10M data points', async () => {
+
   test('Reading movie info from DB returns correct data structure', async () => {
     try {
       const queryString = 'SELECT * FROM movieinfo WHERE id = 1';
-      const res = await client.query(queryString);
+      const res = await pool.query(queryString);
       const dataObj = res.rows[0];
 
       expect(dataObj).toEqual(expect.objectContaining({
@@ -55,7 +57,7 @@ describe('Postgres DBMS Benchmarking with 10M data points', () => {
 
           // measure time to finish retreiving result for query
           const t = process.hrtime();
-          const res = await client.query(text, values);
+          const res = await pool.query(text, values);
           if (i === 9999000) {
             console.log('SAMPLE data output\n', res.rows[0]);
           }
@@ -75,5 +77,5 @@ describe('Postgres DBMS Benchmarking with 10M data points', () => {
     } catch (e) {
       console.log(e);
     }
-  });
+  }, 60000);
 });
