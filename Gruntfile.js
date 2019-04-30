@@ -1,13 +1,14 @@
 /* eslint-disable func-names */
+require('dotenv').config({ path: './amazon.env' });
+
 module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    aws: grunt.file.readJSON('awss3.json'),
 
     aws_s3: {
       options: {
-        accessKeyId: '<%= aws.AWSAccessKeyId %>',
-        secretAccessKey: '<%= aws.AWSSecretKey %>',
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
       },
       dist: {
         options: {
