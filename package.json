@@ -37,6 +37,6 @@
   },
   "devDependencies": {
     "grunt-aws": "^0.7.1",
-    "grunt-contrib-connect": "^2.0.0",
+    "grunt-contrib-connect": "^2.0.0"
   }
 }
