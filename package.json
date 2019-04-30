@@ -8,27 +8,12 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "seed": "mongoimport --db sdcBrian --collection movies --file mock-movie-data.json --jsonArray",
     "build:dev": "webpack -d --watch",
     "build": "webpack -p",
     "server-dev": "nodemon server/index.js",
     "server-dev-mongo": "nodemon server/index_mongoose.js",
     "start": "node server/index.js",
-    "test:watch": "jest --watchAll --verbose",
-    "test:coverage": "jest --verbose --coverage",
-    "test:client": "jest client --config jest.config.js",
-    "test:db": "jest test_db --config ./test_db/jest.config.js",
-    "write:sampleData": "node ./data_sample_generator/writeSampleData.js",
-    "write:postgres": "node --max-old-space-size=4096 ./data_generator/writePGSQL.js",
-    "write:cassandra": "node --max-old-space-size=4096 ./data_generator/writeCassandra.js",
-    "seed:postgresSample": "node --max-old-space-size=4096 ./database_seeder/sampleSeedPostgreSQL.js",
-    "seed:postgres": "node --max-old-space-size=4096 ./database_seeder/seedPostgreSQL.js",
-    "seed:cassandraSample": "cqlsh 127.0.0.1 9042 -f ./database_seeder/cassandra-sample.cql",
-    "seed:cassandra": "cqlsh 127.0.0.1 9042 -f ./database_seeder/cassandra.cql",
-    "createId": "node data_generator/createId.js",
-    "test:artillery": "artillery run testload.yml",
-    "e2:uploadCsv": "scp -i ~/code/amazon-keys/andrew-sdc-key-pair-useast1.pem ./database_seeder/sdc-postgresql-data.csv ec2-user@ec2-54-82-216-200.compute-1.amazonaws.com:~",
-    "e2:connect": " ssh -i '/Users/exitright/code/amazon-keys/andrew-sdc-key-pair-useast1.pem' ec2-user@ec2-54-82-216-200.compute-1.amazonaws.com"
+    "e2:connectDB": " ssh -i '/Users/exitright/code/amazon-keys/andrew-sdc-key-pair-useast1.pem' ec2-user@ec2-54-82-216-200.compute-1.amazonaws.com"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.3",
@@ -36,19 +21,12 @@
     "body-parser": "^1.18.3",
     "cassandra-driver": "^4.0.0",
     "cors": "^2.8.5",
-    "csv-write-stream": "^2.0.0",
     "dotenv": "^7.0.0",
     "enzyme-to-json": "^3.3.5",
     "express": "^4.16.4",
-    "faker": "^4.1.0",
     "grunt": "^1.0.4",
     "grunt-aws-s3": "^2.0.0",
     "isomorphic-fetch": "^2.2.1",
-    "jest-environment-enzyme": "^7.0.2",
-    "jest-enzyme": "^7.0.2",
-    "mongod": "^2.0.0",
-    "mongodb": "^3.2.2",
-    "mongoose": "^5.4.20",
     "newrelic": "^5.7.0",
     "pg": "^7.10.0",
     "react": "^16.8.6",
@@ -58,31 +36,7 @@
     "styled-components": "^4.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "@babel/preset-es2015": "^7.0.0-beta.53",
-    "@babel/preset-react": "^7.0.0",
-    "babel-jest": "^24.5.0",
-    "babel-loader": "^8.0.5",
-    "babel-plugin-styled-components": "^1.10.0",
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.12.1",
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
     "grunt-aws": "^0.7.1",
     "grunt-contrib-connect": "^2.0.0",
-    "jest": "^24.5.0",
-    "jest-styled-components": "^6.3.1",
-    "react-test-renderer": "^16.8.6",
-    "superagent": "^5.0.2",
-    "supertest": "^4.0.2",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
-  },
-  "jest": {
-    "setupTestFrameworkScriptFile": "jest-enzyme",
-    "testEnvironment": "enzyme",
-    "testEnvironmentOptions": {
-      "enzymeAdapter": "react16"
-    }
   }
 }
