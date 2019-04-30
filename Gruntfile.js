@@ -1,5 +1,5 @@
 /* eslint-disable func-names */
-require('dotenv').config({ path: './amazon.env' });
+
 
 module.exports = function (grunt) {
   grunt.initConfig({
