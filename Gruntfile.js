@@ -1,29 +1,36 @@
+/* eslint-disable func-names */
 module.exports = function(grunt) {
   grunt.initConfig({
-    aws: grunt.file.readJSON(".aws.json"),
+    pkg: grunt.file.readJSON('package.json'),
+    aws: grunt.file.readJSON('awss3.json'),
+
     aws_s3: {
       options: {
-        accessKeyId: "<%= aws.accessKeyId %>",
-        secretAccessKey: "<%= aws.secretAccessKey %>"
-
+        accessKeyId: '<%= aws.AWSAccessKeyId %>',
+        secretAccessKey: '<%= aws.AWSSecretKey %>',
       },
       dist: {
         options: {
-          bucket: "fec-movie-info"
+          bucket: 'sdc-andrew-static-files',
+          signatureVersion: 'v4',
+          region: 'us-east-1',
         },
         files: [
           {
             expand: true,
-            cwd: "client/dist/",
-            src: ["**"],
-            dest: "/scripts"
-          }
-        ]
-      }
-    }
+            cwd: 'client/dist/',
+            src: ['**'],
+            dest: '/',
+          },
+        ],
+      },
+    },
   });
 
-  grunt.loadNpmTasks("grunt-aws-s3");
-
-  grunt.registerTask("deploy", "aws_s3");
+  grunt.loadNpmTasks('grunt-aws-s3');
+  grunt.registerTask('deploy', 'aws_s3');
 };
+
+
+/* eslint-disable func-names */
+// eslint-disable-next-line func-names

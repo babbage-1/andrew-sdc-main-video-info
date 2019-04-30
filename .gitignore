@@ -55,3 +55,4 @@ data_sample_generator/
 database_seeder/
 public/
 test_db/
+awsS3.json
