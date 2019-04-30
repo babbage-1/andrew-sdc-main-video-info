@@ -1,12 +1,7 @@
 /* eslint-disable no-await-in-loop */
 const { Client } = require('pg');
-const client = new Client({
-  user: 'postgres',
-  host: '127.0.0.1',
-  database: 'sdcandrew',
-  password: '',
-  port: 5432,
-});
+const { config } = require('../postgres_config');
+const client = new Client(config);
 
 // const connectPostgres = async () => {
 //   await pool.connect();
