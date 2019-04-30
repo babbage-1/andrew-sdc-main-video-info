@@ -29,14 +29,21 @@ const seedPostgres = async () => {
 
 
     const copyPath = path.join(__dirname, './sdc-sample-postgresql-data.csv');
+    const ec2Path = '/var/lib/pgsql92/sdc-sample-postgresql-data.csv';
+    console.log(copyPath);
+
     await client.query(`
-      COPY MovieInfo FROM '${copyPath}' WITH (FORMAT CSV, HEADER);
+      COPY MovieInfo FROM ${ec2Path} WITH (FORMAT CSV, HEADER);
     `);
 
     console.log('adding auto serial index column named "id"!');
     await client.query(`
-      ALTER TABLE movieinfo ADD COLUMN id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY;
+      ALTER TABLE movieinfo ADD COLUMN id SERIAL PRIMARY KEY;
     `);
+
+    // await client.query(`
+    //   INSERT INTO movieinfo (id) SELECT g.id FROM generate_series(1, 100000) AS g (id);
+    // `);
     // NOT CONCURRENTLY, NOT MULTI COLUMN (releaseyear)
 
     console.log('commiting!');
