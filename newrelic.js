@@ -10,7 +10,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['andrew-sdc-main-video-info'],
+  app_name: ['deployed-andrew-sdc-main-video-info'],
   /**
    * Your New Relic license key.
    */
