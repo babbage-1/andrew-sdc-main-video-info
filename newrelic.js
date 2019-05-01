@@ -6,11 +6,17 @@ require('dotenv').config({ path: './postgres.env' });
  * See lib/config/default.js in the agent distribution for a more complete
  * description of configuration variables and their potential values.
  */
+
+let name = 'andrew-sdc-main-video-info';
+if (process.env.NODE_ENV === 'production') {
+  name = 'deployed-andrew-sdc-main-video-info';
+}
+
 exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['deployed-andrew-sdc-main-video-info'],
+  app_name: [name],
   /**
    * Your New Relic license key.
    */

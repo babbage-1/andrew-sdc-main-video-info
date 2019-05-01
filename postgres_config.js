@@ -1,7 +1,5 @@
 /* eslint-disable global-require */
-
-
-
+require('dotenv').config({ path: './postgres.env' });
 
 const config = {
   user: process.env.PG_USER,
