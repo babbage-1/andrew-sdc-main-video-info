@@ -64,3 +64,4 @@ node_modules_old
 testload.yml
 Gruntfile.js
 *.txt
+loader/

@@ -6,6 +6,8 @@ const cors = require('cors');
 const { movieInfoController } = require('./movieInfoController');
 
 app.use('/main/:id', express.static('client/dist'));
+app.use('/', express.static('server/loader'));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
