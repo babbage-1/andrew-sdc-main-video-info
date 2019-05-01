@@ -8,6 +8,7 @@
     "node": ">=6.13.0"
   },
   "scripts": {
+    "start:pm2": "pm2 start ./server/index.js",
     "start": "node server/index.js",
     "e2:connectDB": " ssh -i '/Users/exitright/code/amazon-keys/andrew-sdc-key-pair-useast1.pem' ec2-user@ec2-54-82-216-200.compute-1.amazonaws.com"
   },
