@@ -7,7 +7,7 @@ const config = {
   database: process.env.PG_DB,
   password: process.env.PG_PASSWORD,
   port: process.env.PG_PORT,
-  max: 40,
+  max: 20,
 };
 
 const testConfig = {
