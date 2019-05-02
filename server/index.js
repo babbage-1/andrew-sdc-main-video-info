@@ -4,15 +4,15 @@ const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { movieInfoController } = require('./movieInfoController');
+const { movieInfoController, movieInfoReadController, movieInfoCreateController } = require('./movieInfoController');
 
 app.use('/main/:id', express.static('client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/main/:id/read', movieInfoController);
-app.post('/main/:id/create', movieInfoController);
+app.get('/main/:id/read', movieInfoReadController);
+app.post('/main/:id/create', movieInfoCreateController);
 app.put('/main/:id/update', movieInfoController);
 app.delete('/main/:id/delete', movieInfoController);
 
