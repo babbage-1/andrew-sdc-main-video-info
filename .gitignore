@@ -65,3 +65,4 @@ testload.yml
 Gruntfile.js
 *.txt
 loader/
+*.conf
