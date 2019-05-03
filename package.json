@@ -11,7 +11,8 @@
     "start:pm2": "pm2 start ./server/index.js",
     "start": "node server/index.js",
     "ec2:connectDB": "ssh -i '/Users/exitright/code/amazon-keys/andrew-sdc-key-pair-useast1.pem' ec2-user@ec2-54-82-216-200.compute-1.amazonaws.com",
-    "ec2:connectService": "ssh -i '/Users/exitright/code/amazon-keys/andrew-sdc-key-pair-useast1.pem' ec2-user@ec2-54-91-248-31.compute-1.amazonaws.com"
+    "ec2:connectService": "ssh -i '/Users/exitright/code/amazon-keys/andrew-sdc-key-pair-useast1.pem' ec2-user@ec2-54-91-248-31.compute-1.amazonaws.com",
+    "ec2:connectNginx": "ssh -i ~/code/amazon-keys/andrew-sdc-key-pair-useast1.pem ec2-user@ec2-54-161-202-111.compute-1.amazonaws.com"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.3",
