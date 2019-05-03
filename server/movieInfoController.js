@@ -7,7 +7,7 @@ const {
 } = require('./dataCheck');
 
 const movieInfoReadController = async (req, res) => {
-  const movieId = req.params.id;
+  const movieId = req.params.id; 
   if (idIsNaN(movieId)) {
     // check if id number, return error ir not
     console.log('id not a number');
