@@ -9,7 +9,7 @@ require('dotenv').config({ path: './postgres.env' });
 
 let name = 'andrew-sdc-main-video-info';
 if (process.env.NODE_ENV === 'production') {
-  name = 'deployed-nginx-andrew-sdc-main-video-info';
+  name = 'deployed-3-andrew-sdc-main-video-info';
 }
 
 exports.config = {
