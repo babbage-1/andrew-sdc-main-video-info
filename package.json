@@ -13,7 +13,8 @@
     "ec2:connectDB": "ssh -i '/Users/exitright/code/amazon-keys/andrew-sdc-key-pair-useast1.pem' ec2-user@ec2-54-82-216-200.compute-1.amazonaws.com",
     "ec2:service0": "ssh -i '/Users/exitright/code/amazon-keys/andrew-sdc-key-pair-useast1.pem' ec2-user@ec2-54-91-248-31.compute-1.amazonaws.com",
     "ec2:nginx": "ssh -i ~/code/amazon-keys/andrew-sdc-key-pair-useast1.pem ec2-user@ec2-54-161-202-111.compute-1.amazonaws.com",
-    "ec2:service2": "ssh -i ~/code/amazon-keys/andrew-sdc-key-pair-useast1.pem ec2-user@ec2-3-93-145-102.compute-1.amazonaws.com"
+    "ec2:service2": "ssh -i ~/code/amazon-keys/andrew-sdc-key-pair-useast1.pem ec2-user@ec2-3-93-145-102.compute-1.amazonaws.com",
+    "ec2:service3": "ssh -i ~/code/amazon-keys/andrew-sdc-key-pair-useast1.pem ec2-user@ec2-3-88-186-120.compute-1.amazonaws.com"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.3",
